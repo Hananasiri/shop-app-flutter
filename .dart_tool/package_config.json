@@ -105,7 +105,7 @@
     },
     {
       "name": "firebase_core_platform_interface",
-      "rootUri": "file:///Users/hananasiri/dev/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_platform_interface-4.5.2",
+      "rootUri": "file:///Users/hananasiri/dev/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_platform_interface-4.5.1",
       "packageUri": "lib/",
       "languageVersion": "2.16"
     },
@@ -380,7 +380,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2022-11-09T18:53:41.864531Z",
+  "generated": "2022-11-10T13:48:07.386817Z",
   "generator": "pub",
   "generatorVersion": "2.18.2"
 }

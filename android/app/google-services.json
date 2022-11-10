@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "305160405336",
+    "project_id": "shop-getx-43102",
+    "storage_bucket": "shop-getx-43102.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:305160405336:android:1faf8e4484c81208c8a52d",
+        "android_client_info": {
+          "package_name": "com.example.hanan_shop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "305160405336-us1g4gdm6b8eu85al84tkdl5662qbmrj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLm4brPEh2bCBei0nJ4HG3Up76Oc8bbdc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "305160405336-us1g4gdm6b8eu85al84tkdl5662qbmrj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
