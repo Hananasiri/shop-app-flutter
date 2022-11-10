@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
+import 'package:hanan_shop/auth/forgot_screen.dart';
 import 'package:hanan_shop/auth/login_screen.dart';
 import 'package:hanan_shop/auth/signup_screen.dart';
+import 'package:hanan_shop/logic/bindings/auth_binding.dart';
 import 'package:hanan_shop/screens/welcome_screen.dart';
 
 class AppRoutes {
@@ -9,15 +11,22 @@ class AppRoutes {
   static final routes = [
     GetPage(
       name: Routes.welcomeScreen,
-      page: () => const welcomeScreen(),
+      page: () => const WelcomeScreen(),
     ),
     GetPage(
       name: Routes.loginScreen,
-      page: () => const loginScreen(),
+      page: () =>  LoginScreen(),
+      binding: AuthBinding(), // اضيفها عشان ماتصير اخطاء مع القيتكس
     ),
     GetPage(
       name: Routes.signUpScreen,
-      page: () =>   signUpScreen(),
+      page: () =>   SignUpScreen(),
+      binding: AuthBinding(),
+    ),
+    GetPage(
+      name: Routes.forgotPasswordScreen,
+      page: () =>   ForgotPasswordScreen(),
+      binding: AuthBinding(),
     ),
   ];
 }
@@ -26,4 +35,5 @@ class Routes {
   static const welcomeScreen = '/welcomeScreen';
   static const loginScreen = '/loginScreen';
   static const signUpScreen = '/signUpScreen';
+  static const forgotPasswordScreen = '/forgotPasswordScreen';
 }

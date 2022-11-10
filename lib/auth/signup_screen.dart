@@ -1,21 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:hanan_shop/logic/controller/auth_controller.dart';
 import 'package:hanan_shop/utils/theme.dart';
 import 'package:hanan_shop/widgets/text_utils.dart';
 
+import '../routes/routes.dart';
 import '../utils/my_string.dart';
 import '../widgets/auth/auth_buttone.dart';
 import '../widgets/auth/auth_text_from_field.dart';
 import '../widgets/auth/check_widget.dart';
 import '../widgets/auth/container_under.dart';
 
-class signUpScreen extends StatelessWidget {
-  signUpScreen({Key? key}) : super(key: key);
+class SignUpScreen extends StatelessWidget {
+  SignUpScreen({Key? key}) : super(key: key);
   final fromKey = GlobalKey<FormState>(); // هنا نتحقق من الفالديشن انها صحيحة
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+  //final controller = Get.put(AuthController()); // اول ماافتح التطبيق يتم استدعائها
+  final controller =
+      Get.find<AuthController>(); // تبع الباسوورد هل هو مرئي او لا
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +36,7 @@ class signUpScreen extends StatelessWidget {
           key: fromKey,
           child: Column(
             children: [
-              Container(
+              SizedBox(
                   width: double.infinity,
                   height: MediaQuery.of(context).size.height / 1.3,
                   child: Padding(
@@ -96,7 +102,6 @@ class signUpScreen extends StatelessWidget {
                               return null;
                             }
                           },
-
                           prefixIcone: Get.isDarkMode
                               ? Image.asset(
                                   '/Users/hananasiri/Desktop/hanan-shop/assets/images/email.png')
@@ -111,27 +116,43 @@ class signUpScreen extends StatelessWidget {
                         const SizedBox(
                           height: 20,
                         ),
-                        AuthTextFromField(
-                          controller: passwordController,
-                          obscureText: true,
-                          validator: (value) {
-                            if (value.toString().length < 6) {
-                              return 'password should be longer or equal to 6 charactors';
-                            } else {
-                              return null;
-                            }
+                        GetBuilder<AuthController>(
+                          builder: (_) {
+                            return AuthTextFromField(
+                              controller: passwordController,
+                              obscureText: controller.isVisibilty ? false : true,// هنا اظهرنا الباسوورد في علامة العين
+                              validator: (value) {
+                                if (value.toString().length < 6) {
+                                  return 'password should be longer or equal to 6 charactors';
+                                } else {
+                                  return null;
+                                }
+                              },
+                              prefixIcone: Get.isDarkMode
+                                  ? Image.asset(
+                                      '/Users/hananasiri/Desktop/hanan-shop/assets/images/lock.png')
+                                  : Icon(
+                                      Icons.lock,
+                                      color: pinkClr,
+                                      size: 30,
+                                    ),
+                              hintText: "Password",
+                              suffixIcone: IconButton(
+                                onPressed: () {
+                                  controller.visibilty();
+                                },
+                                icon: controller.isVisibilty
+                                    ? const Icon(
+                                        Icons.visibility_off,
+                                        color: Colors.black,
+                                      )
+                                    : const Icon(
+                                        Icons.visibility,
+                                        color: Colors.black,
+                                      ),
+                              ),
+                            );
                           },
-
-                          prefixIcone: Get.isDarkMode
-                              ? Image.asset(
-                                  '/Users/hananasiri/Desktop/hanan-shop/assets/images/lock.png')
-                              : Icon(
-                                  Icons.lock,
-                                  color: pinkClr,
-                                  size: 30,
-                                ),
-                          suffixIcone: const Text(""),
-                          hintText: "Password",
                         ),
                         SizedBox(
                           height: 50,
@@ -150,7 +171,10 @@ class signUpScreen extends StatelessWidget {
               ContainerUnder(
                 text: 'Already have an Account?',
                 textType: 'Log in',
-                onPressed: () {},
+               // underLine: TextDecoration.underline,
+                onPressed: () {
+                  Get.offNamed(Routes.loginScreen);
+                },
               ),
             ],
           ),

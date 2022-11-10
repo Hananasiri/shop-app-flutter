@@ -6,8 +6,8 @@ import 'package:hanan_shop/routes/routes.dart';
 import 'package:hanan_shop/utils/theme.dart';
 import 'package:hanan_shop/widgets/text_utils.dart';
 
-class welcomeScreen extends StatelessWidget {
-  const welcomeScreen({Key? key}) : super(key: key);
+class WelcomeScreen extends StatelessWidget {
+  const WelcomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

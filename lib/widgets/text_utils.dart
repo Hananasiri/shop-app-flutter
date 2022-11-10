@@ -24,7 +24,7 @@ class TextUtils extends StatelessWidget {
       text,
       style: GoogleFonts.lato(
           textStyle: TextStyle(
-        decoration: TextDecoration.none,
+        decoration: underLine,
         color: color,
         fontSize: fontSize,
         fontWeight: fontWeight,

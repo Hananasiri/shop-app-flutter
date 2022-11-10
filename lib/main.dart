@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const welcomeScreen(),
+      home: const WelcomeScreen(),
       initialRoute: AppRoutes.welcome,
       getPages: AppRoutes.routes,
     );
