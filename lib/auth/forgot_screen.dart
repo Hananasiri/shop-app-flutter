@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:hanan_shop/logic/controller/auth_controller.dart';
 import 'package:hanan_shop/utils/theme.dart';
 import 'package:hanan_shop/widgets/auth/auth_buttone.dart';
 
@@ -12,8 +13,8 @@ class ForgotPasswordScreen extends StatelessWidget {
    ForgotPasswordScreen({Key? key}) : super(key: key);
 
    final TextEditingController emailController = TextEditingController();
-
-  final formKey = GlobalKey<FormState>();
+   final formKey = GlobalKey<FormState>();
+   final controller = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
@@ -69,8 +70,8 @@ class ForgotPasswordScreen extends StatelessWidget {
             const  SizedBox(
               height:50,
             ),
-           Image.asset('/Users/hananasiri/Desktop/shop-app-flutter/assets/images/forgetpass copy.png',
-             width: 250,
+           Image.asset('assets/images/forgetpass copy.png',
+             width: 350,
            ),
                     const  SizedBox(
                       height:50,
@@ -79,7 +80,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                       controller: emailController,
                       obscureText: false,
                       validator: (value) {
-                        if (!RegExp(validationName).hasMatch(value)) {
+                        if (!RegExp(validationEmail).hasMatch(value)) {
                           return 'Invalid email';
                         } else {
                           return null;
@@ -87,7 +88,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                       },
                       prefixIcone: Get.isDarkMode
                           ? Image.asset(
-                          '/Users/hananasiri/Desktop/shop-app-flutter/assets/images/forgetpass copy.png')
+                          'assets/images/forgetpass copy.png')
                           : Icon(
                         Icons.email_rounded,
                         color: pinkClr,
@@ -99,10 +100,21 @@ class ForgotPasswordScreen extends StatelessWidget {
                     const  SizedBox(
                       height:50,
                     ),
-                    AuthButtone(
-                      onPressed: () {},
-                      text: "SEND",
-                    )
+                    GetBuilder<AuthController>(builder: (_){
+                      return AuthButtone(
+                         onPressed: () {
+                           if (formKey.currentState!.validate()){
+                             String email = emailController.text.trim();
+                             controller.resetPassword(email);
+                           }
+                         },
+                         text: "SEND",
+                       );
+                    }),
+                    // AuthButtone(
+                    //   onPressed: () {},
+                    //   text: "SEND",
+                    // ),
                   ],
                 ),
               ),

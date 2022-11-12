@@ -3,6 +3,7 @@ import 'package:hanan_shop/auth/forgot_screen.dart';
 import 'package:hanan_shop/auth/login_screen.dart';
 import 'package:hanan_shop/auth/signup_screen.dart';
 import 'package:hanan_shop/logic/bindings/auth_binding.dart';
+import 'package:hanan_shop/screens/main_screen.dart';
 import 'package:hanan_shop/screens/welcome_screen.dart';
 
 class AppRoutes {
@@ -28,6 +29,11 @@ class AppRoutes {
       page: () =>   ForgotPasswordScreen(),
       binding: AuthBinding(),
     ),
+    GetPage(
+      name: Routes.mainScreen,
+      page: () =>   MainScreen(),
+      binding: AuthBinding(),
+    ),
   ];
 }
 
@@ -36,4 +42,5 @@ class Routes {
   static const loginScreen = '/loginScreen';
   static const signUpScreen = '/signUpScreen';
   static const forgotPasswordScreen = '/forgotPasswordScreen';
+  static const mainScreen = '/mainScreen';
 }

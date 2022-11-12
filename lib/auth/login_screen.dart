@@ -151,10 +151,22 @@ class LoginScreen extends StatelessWidget {
                         SizedBox(
                           height: 50,
                         ),
-                        AuthButtone(
-                          onPressed: () {},
-                          text: "LOG IN",
-                        ),
+                        GetBuilder<AuthController>(builder: (_){
+                          return AuthButtone(
+                            onPressed: () {
+                              if(fromKey.currentState!.validate()) {
+                                String email = emailController.text.trim();
+                                String password = passwordController.text;
+                                controller.loginUpUsingFirebade(email: email, password: password);
+                              }
+                            },
+                           text: "LOG IN",
+                          );
+                        }),
+                        // AuthButtone(
+                        //   onPressed: () {},
+                        //   text: "LOG IN",
+                        // ),
                         SizedBox(
                           height: 20,
                         ),
@@ -181,10 +193,19 @@ class LoginScreen extends StatelessWidget {
                             SizedBox(
                              width: 12,
                             ),
-                            InkWell(
-                                onTap: () {},
-                                child:
-                                Image.asset('/Users/hananasiri/Desktop/shop-app-flutter/assets/images/google.png')),
+                            GetBuilder<AuthController>(builder: (_){
+                              return
+                               InkWell(
+                                  onTap: () {
+                                    controller.googleSignUpApp();
+                                  },
+                                 child:
+                                  Image.asset('/Users/hananasiri/Desktop/shop-app-flutter/assets/images/google.png'));
+                            })
+                            // InkWell(
+                            //     onTap: () {},
+                            //     child:
+                            //     Image.asset('/Users/hananasiri/Desktop/shop-app-flutter/assets/images/google.png')),
                           ],
                         )
                       ],

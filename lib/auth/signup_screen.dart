@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -96,7 +97,7 @@ class SignUpScreen extends StatelessWidget {
                           controller: emailController,
                           obscureText: false,
                           validator: (value) {
-                            if (!RegExp(validationName).hasMatch(value)) {
+                            if (!RegExp(validationEmail).hasMatch(value)) {
                               return 'Invalid email';
                             } else {
                               return null;
@@ -120,7 +121,9 @@ class SignUpScreen extends StatelessWidget {
                           builder: (_) {
                             return AuthTextFromField(
                               controller: passwordController,
-                              obscureText: controller.isVisibilty ? false : true,// هنا اظهرنا الباسوورد في علامة العين
+                              obscureText: controller.isVisibilty
+                                  ? false
+                                  : true, // هنا اظهرنا الباسوورد في علامة العين
                               validator: (value) {
                                 if (value.toString().length < 6) {
                                   return 'password should be longer or equal to 6 charactors';
@@ -161,17 +164,60 @@ class SignUpScreen extends StatelessWidget {
                         SizedBox(
                           height: 50,
                         ),
-                        AuthButtone(
-                          onPressed: () {},
-                          text: "Sign Up",
-                        ),
+
+                        GetBuilder<AuthController>(
+                          builder: (_) {
+                            return AuthButtone(
+                              onPressed: () {
+                                if (controller.isCheckBox == false) {
+                                  Get.snackbar(
+                                    "Check Box",
+                                    "please accept terms & conditions ",
+                                    snackPosition: SnackPosition.BOTTOM,
+                                    backgroundColor: Colors.green,
+                                    colorText: Colors.white,
+                                  );
+                                } else if (fromKey.currentState!.validate()) {
+                                  String name = nameController.text.trim();
+                                  String email = emailController.text.trim();
+                                  String password = passwordController.text;
+                                  controller.signUpUsingFirebade(
+                                      name: name,
+                                      email: email,
+                                      password: password);
+                                }
+                                controller.isCheckBox = true;
+                              },
+                              text: "Sign up",
+                            );
+                          },
+                        )
+                        // AuthButtone(
+                        //   onPressed: () async {
+                        //     try {
+                        //       final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                        //         email: "hanann@gmail.com",
+                        //         password: "Aa12345@@",
+                        //       );
+                        //     } on FirebaseAuthException catch (e) {
+                        //       if (e.code == 'weak-password') {
+                        //         print('The password provided is too weak.');
+                        //       } else if (e.code == 'email-already-in-use') {
+                        //         print('The account already exists for that email.');
+                        //       }
+                        //     } catch (e) {
+                        //       print(e);
+                        //     }
+                        //   },
+                        //   text: "Sign Up",
+                        // ),
                       ],
                     ),
                   )),
               ContainerUnder(
                 text: 'Already have an Account?',
                 textType: 'Log in',
-               // underLine: TextDecoration.underline,
+                // underLine: TextDecoration.underline,
                 onPressed: () {
                   Get.offNamed(Routes.loginScreen);
                 },
