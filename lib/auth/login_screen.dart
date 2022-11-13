@@ -25,11 +25,12 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: context.theme.backgroundColor,
       appBar: AppBar(
         backgroundColor: Get.isDarkMode ? Colors.white : darkGreyClr,
         elevation: 0,
       ),
-      backgroundColor: Get.isDarkMode ? Colors.white : darkGreyClr,
+      //backgroundColor: Get.isDarkMode ? Colors.white : darkGreyClr,
       body: SingleChildScrollView(
         child: Form(
           key: fromKey,
@@ -59,7 +60,7 @@ class LoginScreen extends StatelessWidget {
                                 text: "IN",
                                 color: Get.isDarkMode
                                     ? Colors.black
-                                    : Colors.white,
+                                    : pinkClr,
                                 underLine: TextDecoration.none),
                           ],
                         ),
@@ -73,7 +74,7 @@ class LoginScreen extends StatelessWidget {
                           controller: emailController,
                           obscureText: false,
                           validator: (value) {
-                            if (!RegExp(validationName).hasMatch(value)) {
+                            if (!RegExp(validationEmail).hasMatch(value)) {
                               return 'Invalid email';
                             } else {
                               return null;
@@ -142,7 +143,7 @@ class LoginScreen extends StatelessWidget {
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
                               color:
-                              Get.isDarkMode ? Colors.black : Colors.white,
+                              Get.isDarkMode ? Colors.white : Colors.black,
                               underLine:  TextDecoration.none,
                             ),
                           ),
@@ -187,7 +188,7 @@ class LoginScreen extends StatelessWidget {
                             InkWell( // عشان اذا ضغطت ع الصورة تنضغط معي يصير لها اون تاب
                               onTap: () {},
                                 child:
-                                Image.asset('/Users/hananasiri/Desktop/shop-app-flutter/assets/images/facebook.png',
+                                Image.asset('assets/images/facebook.png',
                                 ),
                             ),
                             SizedBox(
@@ -200,7 +201,7 @@ class LoginScreen extends StatelessWidget {
                                     controller.googleSignUpApp();
                                   },
                                  child:
-                                  Image.asset('/Users/hananasiri/Desktop/shop-app-flutter/assets/images/google.png'));
+                                  Image.asset('assets/images/google.png'));
                             })
                             // InkWell(
                             //     onTap: () {},

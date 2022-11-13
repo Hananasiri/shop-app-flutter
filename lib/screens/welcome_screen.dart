@@ -21,7 +21,7 @@ class WelcomeScreen extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               height: double.infinity,
-              child: Image.asset('/Users/hananasiri/Desktop/shop-app-flutter/assets/images/background.png',
+              child: Image.asset('assets/images/background.png',
              fit: BoxFit.cover ),
             ),
             Container(

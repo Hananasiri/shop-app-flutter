@@ -20,6 +20,7 @@ class ForgotPasswordScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+          backgroundColor: context.theme.backgroundColor,
     appBar: AppBar(
       backgroundColor: Get.isDarkMode ? Colors.white : darkGreyClr,
       centerTitle:  true,
@@ -38,7 +39,7 @@ class ForgotPasswordScreen extends StatelessWidget {
         color: Get.isDarkMode ? Colors.white : darkGreyClr,
       ),
     ),
-          backgroundColor: Get.isDarkMode ? Colors.white : darkGreyClr,
+         // backgroundColor: Get.isDarkMode ? Colors.white : darkGreyClr,
           body: Form(
             key: formKey,
               child: Padding(
@@ -64,7 +65,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                         'if you want to recorve your account,then please provide your email Id below..',
                     textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: Get.isDarkMode ? Colors.black : Colors.white,
+                        color: Get.isDarkMode ? Colors.white : Colors.black,
                     ),
               ),
             const  SizedBox(
@@ -92,13 +93,13 @@ class ForgotPasswordScreen extends StatelessWidget {
                           : Icon(
                         Icons.email_rounded,
                         color: pinkClr,
-                        size: 30,
+                        size: 20,
                       ),
                       suffixIcone: const Text(""),
                       hintText: "Email",
                     ),
                     const  SizedBox(
-                      height:50,
+                      height:30,
                     ),
                     GetBuilder<AuthController>(builder: (_){
                       return AuthButtone(

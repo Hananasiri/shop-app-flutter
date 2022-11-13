@@ -6,8 +6,11 @@ import 'package:hanan_shop/logic/bindings/auth_binding.dart';
 import 'package:hanan_shop/screens/main_screen.dart';
 import 'package:hanan_shop/screens/welcome_screen.dart';
 
+import '../logic/bindings/main_binding.dart';
+
 class AppRoutes {
   static const welcome = Routes.welcomeScreen;
+  static const mainScreen = Routes.mainScreen;
 
   static final routes = [
     GetPage(
@@ -32,7 +35,10 @@ class AppRoutes {
     GetPage(
       name: Routes.mainScreen,
       page: () =>   MainScreen(),
-      binding: AuthBinding(),
+      bindings: [
+        AuthBinding(),
+        MainBinding(),
+      ],
     ),
   ];
 }

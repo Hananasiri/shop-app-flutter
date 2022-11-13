@@ -31,7 +31,8 @@ class SignUpScreen extends StatelessWidget {
         backgroundColor: Get.isDarkMode ? Colors.white : darkGreyClr,
         elevation: 0,
       ),
-      backgroundColor: Get.isDarkMode ? Colors.white : darkGreyClr,
+      backgroundColor: context.theme.backgroundColor,
+     // backgroundColor: Get.isDarkMode ? Colors.white : darkGreyClr,
       body: SingleChildScrollView(
         child: Form(
           key: fromKey,
@@ -61,7 +62,7 @@ class SignUpScreen extends StatelessWidget {
                                 text: "UP",
                                 color: Get.isDarkMode
                                     ? Colors.black
-                                    : Colors.white,
+                                    : Colors.black,
                                 underLine: TextDecoration.none),
                           ],
                         ),
@@ -175,7 +176,7 @@ class SignUpScreen extends StatelessWidget {
                                     "please accept terms & conditions ",
                                     snackPosition: SnackPosition.BOTTOM,
                                     backgroundColor: Colors.green,
-                                    colorText: Colors.white,
+                                    colorText: Colors.black,
                                   );
                                 } else if (fromKey.currentState!.validate()) {
                                   String name = nameController.text.trim();
