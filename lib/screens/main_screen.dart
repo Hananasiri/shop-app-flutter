@@ -41,11 +41,11 @@ class MainScreen extends StatelessWidget {
             items: [
               BottomNavigationBarItem(
                 activeIcon: Icon(
-                  Icons.category,
+                  Icons.home,
                   color: Get.isDarkMode ? pinkClr : mainColor,
                 ),
                 icon: Icon(
-                  Icons.category,
+                  Icons.home,
                   color: Get.isDarkMode ? Colors.white : Colors.black ,
                 ),
                 label: '',
@@ -76,7 +76,7 @@ class MainScreen extends StatelessWidget {
               BottomNavigationBarItem(
                 activeIcon: Icon(
                   Icons.settings,
-                  color: Get.isDarkMode ? mainColor : pinkClr,
+                    color: Get.isDarkMode ? pinkClr : mainColor,
                 ),
                 icon: Icon(
                   Icons.settings,
