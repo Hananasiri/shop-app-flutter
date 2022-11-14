@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:hanan_shop/utils/theme.dart';
 import 'package:hanan_shop/widgets/text_utils.dart';
 
+import '../view/home/card_items.dart';
 import '../view/home/search_text_form.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -44,13 +45,33 @@ class HomeScreen extends StatelessWidget {
                           color: Colors.white,
                           underLine: TextDecoration.none),
                       SizedBox(
-                        height: 15,
+                        height: 10,
                       ),
                       SearchFromText(),
                     ],
                   ),
                 ),
-              )
+              ),
+               SizedBox(
+              height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: Align(
+                  alignment: Alignment.topLeft, //رحت عند التكست يوتيلز و حطيت اضافة وجيت وبعدين كتبتAlign
+                  child: TextUtils(fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                      text: "Categories",
+                      color: Get.isDarkMode ? Colors.white : Colors.black,
+                      underLine: TextDecoration.none),
+                ),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              CardItems(),
+
+
             ],
           )
         ),

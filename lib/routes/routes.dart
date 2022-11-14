@@ -7,6 +7,7 @@ import 'package:hanan_shop/screens/main_screen.dart';
 import 'package:hanan_shop/screens/welcome_screen.dart';
 
 import '../logic/bindings/main_binding.dart';
+import '../logic/bindings/product_bindings.dart';
 
 class AppRoutes {
   static const welcome = Routes.welcomeScreen;
@@ -38,6 +39,7 @@ class AppRoutes {
       bindings: [
         AuthBinding(),
         MainBinding(),
+        ProductBinding(),
       ],
     ),
   ];
