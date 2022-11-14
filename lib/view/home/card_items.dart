@@ -32,6 +32,9 @@ class CardItems extends StatelessWidget {
               itemBuilder: (context, index) {
                 return buildCardItems(
                   image: controller.productList[index].image,
+                  price: controller.productList[index].price,
+                  rate: controller.productList[index].rating.rate,
+
                 );
               }),
         );
@@ -42,6 +45,9 @@ class CardItems extends StatelessWidget {
 
   Widget buildCardItems({
   required String image,
+   required double price,
+    required double rate,
+
 }) {
     return Padding(
       padding: const EdgeInsets.all(5),
@@ -97,7 +103,7 @@ class CardItems extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children:  [
-                  Text("\$ 15",
+                  Text("\$ $price",
                   style: TextStyle(
                       color: Colors.black,
                   fontWeight: FontWeight.bold,
@@ -117,7 +123,7 @@ class CardItems extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         TextUtils(fontSize: 13, fontWeight: FontWeight.bold,
-                            text:"4.7", color: Colors.white,
+                            text:"$rate", color: Colors.white,
                             underLine: TextDecoration.none),
                         Icon(Icons.star,
                           size: 13,
