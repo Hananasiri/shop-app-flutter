@@ -1,19 +1,26 @@
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hanan_shop/model/product_model.dart';
 import '../../services/product_services.dart';
 
 class ProductController extends GetxController {
   var productList = <ProductModels>[].obs;
-
+  var favouritesList = <ProductModels>[].obs;
+  var isLoading = true.obs;
+  //var isFavourites = false.obs; // عرفنا متغير تتم مراقبته بنظام الgetx
+  var storage = GetStorage();//عشان تنحفظ علامة القلب
   @override
-
-
-  void onInit() { //الميثود الي تستدعي البيانات من API
+  void onInit() {
     super.onInit();
+
+    List? storedShoppings =storage.read<List>('isFavouritesList');
+
+    if (storedShoppings != null) {
+      favouritesList =
+         storedShoppings.map((e) => ProductModels.fromJson(e)).toList().obs;
+    }
     getProducts();
   }
-
-  var isLoading = true.obs;
 
   void getProducts() async {
     var products = await ProductServices.getProduct();
@@ -26,5 +33,24 @@ class ProductController extends GetxController {
     } finally {
       isLoading(false);
     }
+  }
+
+
+  void manageFavourites(int productId) async {
+    var existingIndex =
+        favouritesList.indexWhere((element) => element.id == productId);
+
+    if (existingIndex >= 0) {
+      favouritesList.removeAt(existingIndex);
+      await storage.remove("isFavouritedList");
+    } else {
+      favouritesList
+          .add(productList.firstWhere((element) => element.id == productId));
+     await storage.write("isFavouritedList", favouritesList);
+    }
+  }
+
+  bool isFavourites(int productId) {
+    return favouritesList.any((element) => element.id == productId);
   }
 }

@@ -31,9 +31,10 @@ class CardItems extends StatelessWidget {
               ),
               itemBuilder: (context, index) {
                 return buildCardItems(
-                  image: controller.productList[index].image,
+                  image: controller.productList[index].image, //
                   price: controller.productList[index].price,
                   rate: controller.productList[index].rating.rate,
+                    productId: controller.productList[index].id,
 
                 );
               }),
@@ -47,7 +48,7 @@ class CardItems extends StatelessWidget {
   required String image,
    required double price,
     required double rate,
-
+    required int productId,
 }) {
     return Padding(
       padding: const EdgeInsets.all(5),
@@ -65,25 +66,31 @@ class CardItems extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                    onPressed: () {} ,
-                    icon: Icon(
-                      Icons.favorite_outline,
-                      color: Colors.black,
-                    ),
-                ),
-                IconButton(
-                  onPressed: () {} ,
-                  icon: Icon(
-                    Icons.add,
-                    color: Colors.black,
-                  ),
-                ),
-              ],
-            ),
+           Obx(() =>  Row(
+             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+             children: [
+               IconButton(
+                 onPressed: () {
+                   controller.manageFavourites(productId);
+                 },
+                 icon: controller.isFavourites(productId)?
+                 Icon(
+                   Icons.favorite,
+                   color: Colors.red,
+                 ) :   Icon(
+                   Icons.favorite_outline,
+                   color: Colors.black,
+                 ),
+    ),
+               IconButton(
+                 onPressed: () {} ,
+                 icon: Icon(
+                   Icons.add,
+                   color: Colors.black,
+                 ),
+               ),
+             ],
+           ),),
 
             Container( // المتواجدة فيه الصورة
               width: double.infinity,
