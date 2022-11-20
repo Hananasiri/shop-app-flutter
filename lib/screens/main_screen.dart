@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hanan_shop/routes/routes.dart';
 import 'package:hanan_shop/utils/theme.dart';
 
 import '../logic/controller/main_controller.dart';
@@ -22,6 +23,7 @@ class MainScreen extends StatelessWidget {
             leading: Container(),
             actions: [
               IconButton(onPressed: () {
+                Get.toNamed(Routes.cartScreen);
                 // Get.isDarkMode
                 //     ? Get.changeThemeMode(ThemeMode.light)
                 //     : Get.changeThemeMode(ThemeMode.dark);
