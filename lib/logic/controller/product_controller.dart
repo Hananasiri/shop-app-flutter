@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hanan_shop/model/product_model.dart';
@@ -9,6 +10,15 @@ class ProductController extends GetxController {
   var isLoading = true.obs;
   //var isFavourites = false.obs; // عرفنا متغير تتم مراقبته بنظام الgetx
   var storage = GetStorage();//عشان تنحفظ علامة القلب
+
+  //search
+  var searchList = <ProductModels>[].obs;
+  TextEditingController searchTextController = TextEditingController();
+
+
+
+
+
   @override
   void onInit() {
     super.onInit();
@@ -52,5 +62,26 @@ class ProductController extends GetxController {
 
   bool isFavourites(int productId) {
     return favouritesList.any((element) => element.id == productId);
+  }
+
+  //Search Bar Logic
+
+  void addSearchToList(String searchName) {
+    searchName = searchName.toLowerCase();
+
+    searchList.value = productList.where((search) {
+      var searchTitle = search.title.toLowerCase();
+      var searchPrice = search.price.toString().toLowerCase();
+
+      return searchTitle.contains(searchName) ||
+          searchPrice.toString().contains(searchName);
+    }).toList();
+
+    update();
+  }
+
+  void clearSearch() {
+    searchTextController.clear();
+    addSearchToList("");
   }
 }

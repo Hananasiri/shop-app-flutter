@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:hanan_shop/logic/controller/cart_controller.dart';
+import 'package:hanan_shop/logic/controller/product_controller.dart';
 import 'package:hanan_shop/model/product_model.dart';
 import 'package:hanan_shop/screens/product_details.dart';
-import 'package:hanan_shop/utils/theme.dart';
-import 'package:hanan_shop/widgets/text_utils.dart';
-import 'package:hanan_shop/logic/controller/product_controller.dart';
+import '../../utils/theme.dart';
+import '../../widgets/text_utils.dart';
+
 class CardItems extends StatelessWidget {
   CardItems({Key? key}) : super(key: key);
 
   final controller = Get.find<ProductController>();
+
   final cartController = Get.find<CartController>();
 
   @override
@@ -22,48 +23,66 @@ class CardItems extends StatelessWidget {
             color: Get.isDarkMode ? pinkClr : mainColor,
           ),
         );
-      }else {
-        return  Expanded(
-          child: GridView.builder(
-              itemCount: controller.productList.length,
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                childAspectRatio: 0.8,
-                mainAxisSpacing: 9.0,
-                crossAxisSpacing: 6.0,
-                maxCrossAxisExtent: 200,
-              ),
-              itemBuilder: (context, index) {
+      } else {
+        return Expanded(
+          child: controller.searchList.isEmpty &&
+              controller.searchTextController.text.isNotEmpty
+              ? Get.isDarkMode
+              ? Image.asset("assets/images/search_empty_dark.png")
+              : Image.asset("assets/images/search_empry_light.png")
+              : GridView.builder(
+            itemCount: controller.searchList.isEmpty
+                ? controller.productList.length
+                : controller.searchList.length,
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+              childAspectRatio: 0.8,
+              mainAxisSpacing: 9.0,
+              crossAxisSpacing: 6.0,
+              maxCrossAxisExtent: 200,
+            ),
+            itemBuilder: (context, index) {
+              if (controller.searchList.isEmpty) {
                 return buildCardItems(
-                  image: controller.productList[index].image, //
-                  price: controller.productList[index].price,
-                  rate: controller.productList[index].rating.rate,
+                    image: controller.productList[index].image,
+                    price: controller.productList[index].price,
+                    rate: controller.productList[index].rating.rate,
                     productId: controller.productList[index].id,
-                  productModels: controller.productList[index],
-                  onTap: () {
-                    Get.to(() => ProductDetailesScreen(
-                      productModels: controller.productList[index],
-                    ));
-                  }
-
-                );
-              }),
+                    productModels: controller.productList[index],
+                    onTap: () {
+                      Get.to(() => ProductDetailesScreen(
+                        productModels: controller.productList[index],
+                      ));
+                    });
+              } else {
+                return buildCardItems(
+                    image: controller.searchList[index].image,
+                    price: controller.searchList[index].price,
+                    rate: controller.searchList[index].rating.rate,
+                    productId: controller.searchList[index].id,
+                    productModels: controller.searchList[index],
+                    onTap: () {
+                      Get.to(() => ProductDetailesScreen(
+                        productModels: controller.searchList[index],
+                      ));
+                    });
+              }
+            },
+          ),
         );
-
       }
     });
   }
 
   Widget buildCardItems({
-  required String image,
-   required double price,
+    required String image,
+    required double price,
     required double rate,
     required int productId,
     required ProductModels productModels,
     required Function() onTap,
-}) {
+  }) {
     return Padding(
       padding: const EdgeInsets.all(5),
-
       child: InkWell(
         onTap: onTap,
         child: Container(
@@ -80,87 +99,91 @@ class CardItems extends StatelessWidget {
           ),
           child: Column(
             children: [
-             Obx(() =>  Row(
-               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-               children: [
-                 IconButton(
-                   onPressed: () {
-                     controller.manageFavourites(productId);
-                   },
-                   icon: controller.isFavourites(productId)?
-                   Icon(
-                     Icons.favorite,
-                     color: Colors.red,
-                   ) :   Icon(
-                     Icons.favorite_outline,
-                     color: Colors.black,
-                   ),
-    ),
-                 IconButton(
-                   onPressed: () {
-                    cartController.addProductToCart(productModels);
-
-                   } ,
-                   icon: Icon(
-                     Icons.shopping_cart,
-                     color: Colors.black,
-                   ),
-                 ),
-               ],
-             ),),
-
-              Container( // المتواجدة فيه الصورة
+              Obx(
+                    () => Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        controller.manageFavourites(productId);
+                      },
+                      icon: controller.isFavourites(productId)
+                          ? const Icon(
+                        Icons.favorite,
+                        color: Colors.red,
+                      )
+                          : const Icon(
+                        Icons.favorite_outline,
+                        color: Colors.black,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        cartController.addProductToCart(productModels);
+                      },
+                      icon: const Icon(
+                        Icons.shopping_cart,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
                 width: double.infinity,
                 height: 140,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
                 ),
-              child: Image.network(image,
-                fit:BoxFit.fitHeight,
+                child: Image.network(
+                  image,
+                  fit: BoxFit.fitHeight,
+                ),
               ),
-              ),
-
-
-                  Padding(
-                    padding:  EdgeInsets.only(left: 15, right:15, top: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children:  [
-                    Text("\$ $price",
-                    style: TextStyle(
+              Padding(
+                padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "\$ $price",
+                      style: const TextStyle(
                         color: Colors.black,
-                    fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
+                    Container(
+                      height: 20,
+                      width: 45,
+                      decoration: BoxDecoration(
+                        color: mainColor,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 3, right: 2),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            TextUtils(
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                              text: "$rate",
+                              color: Colors.white,
+                              underLine: TextDecoration.none,
+                            ),
+                            const Icon(
+                              Icons.star,
+                              size: 13,
+                              color: Colors.white,
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
-
-                  Container(
-                    height: 20,
-                    width: 45,
-                    decoration: BoxDecoration(
-                      color: mainColor,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 3, right: 2),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          TextUtils(fontSize: 13, fontWeight: FontWeight.bold,
-                              text:"$rate", color: Colors.white,
-                              underLine: TextDecoration.none),
-                          Icon(Icons.star,
-                            size: 13,
-                            color: Colors.white,
-                          ),
-                        ],
-                      )
-                    ),
-
-                  ),
-                ],
+                  ],
+                ),
               ),
-                  ),
             ],
           ),
         ),
