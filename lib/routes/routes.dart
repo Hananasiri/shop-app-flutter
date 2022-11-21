@@ -3,6 +3,7 @@ import 'package:hanan_shop/auth/forgot_screen.dart';
 import 'package:hanan_shop/auth/login_screen.dart';
 import 'package:hanan_shop/auth/signup_screen.dart';
 import 'package:hanan_shop/logic/bindings/auth_binding.dart';
+import 'package:hanan_shop/logic/controller/product_controller.dart';
 import 'package:hanan_shop/screens/main_screen.dart';
 import 'package:hanan_shop/screens/welcome_screen.dart';
 
@@ -46,7 +47,10 @@ class AppRoutes {
     GetPage(
       name: Routes.cartScreen,
       page: () =>   CartScreen(),
-      binding: AuthBinding(),
+      bindings: [
+        AuthBinding(),
+        ProductBinding(),
+      ],
     ),
   ];
 }
