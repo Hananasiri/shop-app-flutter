@@ -143,7 +143,7 @@ class SignUpScreen extends StatelessWidget {
                               hintText: "Password",
                               suffixIcone: IconButton(
                                 onPressed: () {
-                                  controller.visibilty();
+                                  controller..visibilty();
                                 },
                                 icon: controller.isVisibilty
                                     ? const Icon(
